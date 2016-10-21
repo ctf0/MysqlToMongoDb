@@ -19,7 +19,7 @@ class MysqlToMongo extends Command
      *
      * @var string
      */
-    protected $description = 'migrate mysql data to mongodb, also check (http://wp.me/p4DYee-9Q)';
+    protected $description = 'migrate mysql data to mongodb';
 
     /**
      * Create a new command instance.
