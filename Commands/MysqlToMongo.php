@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use DB;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class MysqlToMongo extends Command
 {
@@ -19,7 +19,7 @@ class MysqlToMongo extends Command
      *
      * @var string
      */
-    protected $description = 'migrate mysql data to mongodb';
+    protected $description = 'clone MysqlDb data to MongoDb';
 
     /**
      * Create a new command instance.
@@ -36,32 +36,47 @@ class MysqlToMongo extends Command
      */
     public function handle()
     {
-        $mongo_connection_name = $this->ask('What Is The Mongodb Connection Name ? ex.mongodb');
-        $remove_id_column      = $this->confirm('Do You Wish To Keep The Mysql Id Column ?');
+        $remove_id_column = $this->confirm('Do You Wish To Keep The Mysql Id Column ? "keep it if you want to resolve the models relations"');
 
-        // get all table names
-        $tables = DB::connection('mysql')->select('SHOW TABLES');
+        if ($this->confirm('DB_NAME='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
 
-        foreach ($tables as $one) {
+            // drop the db first
+            DB::getMongoDB()->drop();
 
-            // extract the name
-            $name = $one->Tables_in_homestead;
+            // get all table names from mysql
+            $mysql_connection = DB::connection('mysql');
+            $tables           = $mysql_connection->select('SHOW TABLES');
 
-            // get all the table data
-            $sql = DB::connection('mysql')->table($name)->get()->toArray();
+            foreach ($tables as $one) {
 
-            // insert data to mongodb one by one
-            foreach ($sql as $item) {
+                // extract the table name
+                $name = $one->Tables_in_homestead;
 
-                // turn into array
-                $arr = (array) $item;
+                // get the table data
+                $query = $mysql_connection->table($name)->get()->toArray();
 
-                // remove the id column
-                if (!$remove_id_column) {
-                    $cln = array_shift($arr);
+                // create the collection even if table was empty
+                if (empty($query)) {
+                    DB::getMongoDB()->createCollection($name);
                 }
 
-                DB::connection($mongo_connection_name)->table($name)->insert($arr);
+                // create the collection & insert data to mongodb one by one
+                // Todo : find away to add data in bulk instead
+                else {
+                    foreach ($query as $item) {
+
+                        // turn into array
+                        $arr = (array) $item;
+
+                        // remove the id column
+                        if ( ! $remove_id_column) {
+                            $cln = array_shift($arr);
+                        }
+
+                        // insert into mongo
+                        DB::table($name)->insert($arr);
+                    }
+                }
             }
         }
     }
