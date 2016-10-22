@@ -45,7 +45,7 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 >  - resolve the relation foreign ids
 >  - remove the pivot table after all is done
 
-3- mongo:migrate:relation **"automaticlly resolve any relation ids"**
+3- mongo:migrate:relation
 >  - add the fileds you want to resolve ex.`post_id user_id etc_id`
 >  - go through each collection/table and resolve the foreign ids through its corresponding table name. `posts users etcs`
 
