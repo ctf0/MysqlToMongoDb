@@ -57,8 +57,6 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 - note that that package **doent** recreate the table types from `mysql`, its up to `mongodb` to decide at that point, so i suggest u cast ur attributes to avoid issues.
 - for the forign ids, its possible to re-create it as `Object ID` but that will cause lots of trouble, so its keept as string.
 
----
-
 # ToDo
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
