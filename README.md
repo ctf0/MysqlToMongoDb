@@ -60,4 +60,5 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 # ToDo
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
+* [ ] Update Field Types After Migration.
 * [ ] Turn into Package.
