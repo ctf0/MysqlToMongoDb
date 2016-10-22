@@ -61,7 +61,6 @@ class MysqlToMongo extends Command
                 }
 
                 // create the collection & insert data to mongodb one by one
-                // Todo : find away to add data in bulk instead
                 else {
                     foreach ($query as $item) {
 
