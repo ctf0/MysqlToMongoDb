@@ -32,8 +32,6 @@ mongo:migrate:pivot      # resolve pivot foreign ids (ManyToMany)
 mongo:migrate:relation   # resolve foreign ids (OneToMany)
 mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 ```
-=======
-4- make sure that you can connect to both of ur dbs through laravel without any issues.
 
 1- mongo:migrate
 >  - remove the db b4 doing anything
