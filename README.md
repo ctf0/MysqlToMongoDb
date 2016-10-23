@@ -62,6 +62,5 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
 * [x] Find Away To Update Date Fields With Timezone. "`created_at/updated_at/deleted_at` are now saved as Date type"
-  - make sure your time zone is the same as the one on mysql to to get the correct dates.
 * [ ] Update Field Type After Migration. "any help/PR is welcomed".
 * [ ] Turn into Package.
