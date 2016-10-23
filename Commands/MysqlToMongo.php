@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use DB;
+use Carbon\Carbon;
+use MongoDB\BSON\UTCDateTime;
+use MongoDB\BSON\Timestamp;
 use Illuminate\Console\Command;
 
 class MysqlToMongo extends Command
@@ -68,6 +71,19 @@ class MysqlToMongo extends Command
 
                         // turn into array
                         $arr = (array) $item;
+
+                        $dates = [
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ];
+
+                        foreach ($dates as $date) {
+                            if (isset($arr[$date])) {
+                                $stamp      = Carbon::parse($arr[$date])->timestamp;
+                                $arr[$date] = new UTCDateTime($stamp * 1000);
+                            }
+                        }
 
                         // remove the id column
                         if ( ! $remove_id_column) {
