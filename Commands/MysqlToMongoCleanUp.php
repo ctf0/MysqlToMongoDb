@@ -48,7 +48,7 @@ class MysqlToMongoCleanUp extends Command
             // get all collections/tables
             $tables = DB::getMongoDB()->listCollections();
 
-            // remove the filed from each collection
+            // remove the field from each collection
             foreach ($tables as $one) {
                 $name = $one->getName();
                 DB::table($name)->unset($field);
@@ -57,9 +57,9 @@ class MysqlToMongoCleanUp extends Command
 
         // remove collection/table
         if ($choice == 'Collection') {
-            $field = $this->ask('The Collection To Be Removed ex.users');
+            $table = $this->ask('The Collection To Be Droped/Removed ex.users');
 
-            DB::getMongoDB()->dropCollection($field);
+            DB::getMongoDB()->dropCollection($table);
         }
     }
 }

@@ -48,17 +48,18 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 >  - go through each collection/table and resolve the foreign ids through its corresponding table name. `posts users etcs`
 
 4- mongo:migrate:cleanup
->  - choose either **Field** or **Collection**
->  - if `field` then remove it from all collections
->  - if `collection` then drop it
+>  - choose **Field** or **Collection**
+    - if `field` then remove it from all collections
+    - if `collection` then drop it
 
 ## # Notes
 - the package assume that your **mysql** driver connection is `mysql` and your **default** driver connection is `mongodb`.
-- note that the package **doesnt** recreate the table types from `mysql`, its up to `mongodb` to decide at that point, so as a way around make sure to cast ur attributes to avoid issues.
+- note that the package **doesnt** recreate the table types from `mysql`, its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
 - for the forign ids, its possible to re-create it as `Object ID` but that will cause lots of trouble, so its keept as string.
+- now all your db calls to `id` should be `_id` except in view which is automaticlly converted through the model.
 
 # ToDo
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
-* [ ] Update Field Types After Migration.
+* [ ] Update Field Type After Migration. "any help/PR is welcomed".
 * [ ] Turn into Package.
