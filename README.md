@@ -34,7 +34,7 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 ```
 
 1- mongo:migrate
->  - remove the db b4 doing anything
+>  - drop the db if exist b4 doing anything to avoid issues
 >  - clone tables one by one from mysql to mongodb
 >  - an option to remove the `id` column if not needed.
 
