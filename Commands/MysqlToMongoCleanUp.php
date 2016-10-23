@@ -36,7 +36,8 @@ class MysqlToMongoCleanUp extends Command
      */
     public function handle()
     {
-        $choice = $this->choice('Select The Type You Want To Remove ?',
+        $choice = $this->choice(
+            'Select The Type You Want To Remove ?',
             ['>>> Choose 1, 2 <\<\<', 'Field', 'Collection'],
             1
         );

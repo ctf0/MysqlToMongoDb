@@ -38,19 +38,21 @@ class MysqlToMongo extends Command
     {
         $remove_id_column = $this->confirm('Do You Wish To Keep The Mysql Id Column ? "keep it if you want to resolve the models relations"');
 
-        if ($this->confirm('DB_NAME='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
+        if ($this->confirm('Mongo DataBase Name='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
 
-            // drop the db first
-            DB::getMongoDB()->drop();
-
-            // get all table names from mysql
+            // mysql stuff
             $mysql_connection = DB::connection('mysql');
+            $mysql_db_name    = $this->ask('Whats The Mysql Db Name ?');
             $tables           = $mysql_connection->select('SHOW TABLES');
+            $mysql_tables     = 'Tables_in_'.$mysql_db_name;
+
+            // drop mongo db first
+            DB::getMongoDB()->drop();
 
             foreach ($tables as $one) {
 
                 // extract the table name
-                $name = $one->Tables_in_homestead;
+                $name = $one->$mysql_tables;
 
                 // get the table data
                 $query = $mysql_connection->table($name)->get()->toArray();

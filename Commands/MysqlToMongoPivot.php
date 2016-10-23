@@ -36,10 +36,11 @@ class MysqlToMongoPivot extends Command
      */
     public function handle()
     {
-        $modelOne  = $this->ask('The\Namespace\ModelOne ? ex.App\\Post');
-        $modelTwo  = $this->ask('The\Namespace\ModelTwo ? ex.App\\Tag');
-        $tableName = $this->ask('The Pivot Table Name ? ex.post_tag');
-        $method    = $this->ask('The Pivot Method Name In The "First" Model ? ex.tags');
+        $modelOne   = $this->ask('The\Namespace\ModelOne ? ex.App\\Post');
+        $modelTwo   = $this->ask('The\Namespace\ModelTwo ? ex.App\\Tag');
+        $tableName  = $this->ask('The Pivot Table Name ? ex.post_tag');
+        $method     = $this->ask('The Pivot Method Name In The "First" Model ? ex.tags');
+        $drop_pivot = $this->confirm('Do You Wish To Keep The Pivot Collection on Finish ?');
 
         $field_name_one = snake_case(class_basename($modelOne)).'_id';
         $field_name_two = snake_case(class_basename($modelTwo)).'_id';
@@ -53,6 +54,8 @@ class MysqlToMongoPivot extends Command
             $resolveOne->$method()->attach($resolveTwo);
         }
 
-        DB::getMongoDB()->dropCollection($tableName);
+        if ( ! $drop_pivot) {
+            DB::getMongoDB()->dropCollection($tableName);
+        }
     }
 }
