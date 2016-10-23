@@ -44,7 +44,7 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 >  - resolve the relation foreign ids
 
 3- mongo:migrate:relation
->  - add the fileds you want to resolve ex.`post_id user_id etc_id`
+>  - add the fields you want to resolve ex.`post_id user_id etc_id`
 >  - go through each collection/table and resolve the foreign ids through its corresponding table name. `posts users etcs`
 
 4- mongo:migrate:cleanup
@@ -54,14 +54,17 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 
 ## # Notes
 - the package assume that your **mysql** driver connection is `mysql` and your **default** driver connection is `mongodb`.
-- note that the package **doesnt** recreate the table types from `mysql`, its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
-- timestamps get saved as `string` without the **timezone** "still trying to find a solution where we can update all with one cmnd"
+
+- note that the package **doesnt** recreate the table types from `mysql`, and its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
+
+    - also note that `date fields` get saved as `string` without the **timezone**.
+
 - for the forign ids, its possible to re-create it as `Object ID` but that will cause lots of trouble, so its keept as string.
 - now all your db calls to `id` should be `_id` except in view which is automaticlly converted through the model.
 
 # ToDo
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
-* [ ] Add A Cmnd To Update Date Fields With Timezone.
+* [ ] Find Away To Update Date Fields With Timezone.
 * [ ] Update Field Type After Migration. "any help/PR is welcomed".
 * [ ] Turn into Package.
