@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use DB;
+use MongoDB\BSON\ObjectID;
 use Illuminate\Console\Command;
 
 class MysqlToMongoRelation extends Command
@@ -59,7 +60,7 @@ class MysqlToMongoRelation extends Command
 
                     // replace the old id with the new one in the collection
                     DB::table($name)->where($field, $old_id)->update([
-                        $field => $new_id,
+                        $field => new ObjectID($new_id),
                     ]);
                 }
             }

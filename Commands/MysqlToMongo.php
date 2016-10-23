@@ -44,10 +44,10 @@ class MysqlToMongo extends Command
         if ($this->confirm('Mongo DataBase Name='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
 
             // mysql stuff
-            $mysql_connection = DB::connection('mysql');
             $mysql_db_name    = $this->ask('Whats The Mysql Db Name ?');
-            $tables           = $mysql_connection->select('SHOW TABLES');
             $mysql_tables     = 'Tables_in_'.$mysql_db_name;
+            $mysql_connection = DB::connection('mysql');
+            $tables           = $mysql_connection->select('SHOW TABLES');
 
             // drop mongo db first
             DB::getMongoDB()->drop();

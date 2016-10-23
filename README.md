@@ -55,7 +55,6 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 ## # Notes
 - the package assume that your **mysql** driver connection is `mysql` and your **default** driver connection is `mongodb`.
 - note that the package **doesnt** recreate the table types from `mysql`, and its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
-- for the forign ids, its possible to re-create it as `Object ID` but that will cause lots of trouble, so its keept as string.
 - now all your db calls to `id` should be `_id` except in view which is automaticlly converted through the model.
 
 # ToDo
