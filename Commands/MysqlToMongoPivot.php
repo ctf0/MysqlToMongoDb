@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use DB;
-use MongoDB\BSON\ObjectID;
 use Illuminate\Console\Command;
 
 class MysqlToMongoPivot extends Command
@@ -57,7 +56,7 @@ class MysqlToMongoPivot extends Command
             $resolveOne = $modelOne::where('id', $item[$field_name_one])->first();
             $resolveTwo = $modelTwo::where('id', $item[$field_name_two])->first()->_id;
 
-            $resolveOne->$method()->attach([new ObjectID($resolveTwo)]);
+            $resolveOne->$method()->attach($resolveTwo);
         }
 
         if ( ! $drop_pivot) {

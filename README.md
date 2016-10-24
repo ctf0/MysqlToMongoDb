@@ -59,7 +59,8 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 
 - the package assume that your **mysql** driver connection is `mysql` and your **default** driver connection is `mongodb`.
 - the package **doesnt** recreate the table types from `mysql`, and its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
-- all your app calls to `id` should be changed to `_id` except in view which is automaticlly converted through the model.
+- all your app calls to `id` should be changed to `_id` except in view which is automatically converted through the model.
+- foreign ids as `ObjectId` will cause lots of trouble, so its keept same as the `moloquent` as string type.
 
 # ToDo
 
@@ -67,6 +68,8 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 * [x] Find Away To Update Date Fields With Timezone.
 
 * [x] Update Field Type On Migration.
-    - currently support `timestamp => date` and `tinyint(1) => bool` & `foreign_id => ObjectId`.
+    - currently support `timestamp => date` and `tinyint(1) => bool`;
+
+* [ ] Make A Small GUI For Easier Migration.
 
 * [ ] Turn into Package.
