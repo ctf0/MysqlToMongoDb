@@ -77,19 +77,21 @@ class MysqlToMongo extends Command
                         // get the table columns so we can change its type
                         $columns = $mysql_connection->select(DB::raw('SHOW COLUMNS FROM '.$name.''));
 
-
-                        /**
+                        /*
                          *
-                         * COlumns Loop
+                         * Columns Loop
                          * here we change the column/field type before saving it to mongo
                          * add more conditions for extra fields
                          *
                          */
                         for ($i = 0; $i < count($columns); ++$i) {
+
+                            // bool
                             if ($columns[$i]->Type == 'tinyint(1)') {
                                 $arr[$columns[$i]->Field] = (bool) $arr[$columns[$i]->Field];
                             }
 
+                            // date
                             if ($columns[$i]->Type == 'timestamp') {
                                 $stamp                    = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
                                 $arr[$columns[$i]->Field] = new UTCDateTime($stamp * 1000);

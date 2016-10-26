@@ -62,6 +62,8 @@ class MysqlToMongoRelation extends Command
                         $field => $new_id,
                     ]);
                 }
+
+                DB::table($name)->raw()->createIndex([$field => 1]);
             }
         }
     }

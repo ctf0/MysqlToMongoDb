@@ -72,7 +72,9 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 
 * [x] Find Away To Update Date Fields With Timezone.
 * [x] Update Field Type On Migration.
-    - currently support `timestamp => date` and `tinyint(1) => bool`;
+    - `tinyint(1) => bool`;
+    - `timestamp => date`;
+    - `multi(OneToMany) => index`;
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
 * [ ] Upload Db Backup To S3.
