@@ -21,6 +21,7 @@ protected $commands = [
     Commands\MysqlToMongoPivot::class,
     Commands\MysqlToMongoCleanUp::class,
     Commands\MysqlToMongoRelation::class,
+    Commands\MysqlToMongoMaintain::class,
 ];
 ```
 
@@ -28,13 +29,14 @@ protected $commands = [
 
 ## # Usage
 
-now you have 4 new cmnds.
+now you have 5 new cmnds.
 
 ```bash
 mongo:migrate            # clone mysql data to mongodb
 mongo:migrate:pivot      # resolve pivot foreign ids (ManyToMany)
 mongo:migrate:relation   # resolve foreign ids (OneToMany)
 mongo:migrate:cleanup    # remove un-wanted field/collection from the db
+mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 ```
 
 **1-** `mongo:migrate <MysqlDb> --keep_id`
@@ -52,8 +54,12 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 
 **4-** `mongo:migrate:cleanup`
 >  - choose to remove **Field** or **Collection**
-    - if `field` then remove it from all collections
-    - if `collection` then drop it
+    - if `Field` then remove it from all collections
+    - if `Collection` then drop it
+
+**5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name>`
+>  - choose to **Backup** or **Restore** "in both the file is gzipd and archived for easier maintainability"
+    - if `Restore` "drop the collection b4 restoring"
 
 ## # Notes
 
@@ -64,12 +70,11 @@ mongo:migrate:cleanup    # remove un-wanted field/collection from the db
 
 # ToDo
 
-* [ ] Find Away To Add Data In Bulk Instead Of One By One.
 * [x] Find Away To Update Date Fields With Timezone.
-
 * [x] Update Field Type On Migration.
     - currently support `timestamp => date` and `tinyint(1) => bool`;
 
+* [ ] Find Away To Add Data In Bulk Instead Of One By One.
+* [ ] Upload Db Backup To S3.
 * [ ] Make A Small GUI For Easier Migration.
-
 * [ ] Turn into Package.
