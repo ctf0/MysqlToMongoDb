@@ -10,6 +10,8 @@ use Illuminate\Console\Command;
 
 class MysqlToMongo extends Command
 {
+    protected $indexes = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -96,6 +98,11 @@ class MysqlToMongo extends Command
                                 $stamp                    = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
                                 $arr[$columns[$i]->Field] = new UTCDateTime($stamp * 1000);
                             }
+
+                            // unique
+                            if ($columns[$i]->Key == 'UNI') {
+                                $indexes[] = $columns[$i]->Field;
+                            }
                         }
 
                         // remove the id column
@@ -105,6 +112,12 @@ class MysqlToMongo extends Command
 
                         // insert into mongo
                         DB::table($name)->insert($arr);
+
+                        if ( ! empty($indexes)) {
+                            foreach ($indexes as $one) {
+                                DB::table($name)->raw()->createIndex([$one => 1]);
+                            }
+                        }
                     }
                 }
             }

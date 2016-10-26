@@ -52,8 +52,8 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 >  - add the fields you want to resolve ex.`post_id user_id etc_id`
 >  - go through each collection/table and resolve the foreign ids through its corresponding table name. `posts users etcs`
 
-**4-** `mongo:migrate:cleanup`
->  - choose to remove **Field** or **Collection**
+**4-** `mongo:migrate:cleanup <items>`
+>  - choose to remove those items as **Field** or **Collection**
     - if `Field` then remove it from all collections
     - if `Collection` then drop it
 
@@ -74,6 +74,7 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 * [x] Update Field Type On Migration.
     - `tinyint(1) => bool`;
     - `timestamp => date`;
+    - `unique => index`;
     - `multi(OneToMany) => index`;
 
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
