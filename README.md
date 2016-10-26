@@ -57,7 +57,7 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
     - if `Field` then remove it from all collections
     - if `Collection` then drop it
 
-**5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name>`
+**5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name> --show_output`
 >  - choose to **Backup** or **Restore** "in both the file is gzipd and archived for easier maintainability"
     - if `Restore` "drop the collection b4 restoring"
 

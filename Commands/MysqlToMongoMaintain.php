@@ -19,7 +19,7 @@ class MysqlToMongoMaintain extends Command
                                 {auth_user : the auth username}
                                 {auth_pass : the auth password}
                                 {db_name : the db name to backup/restore}
-                                {--y|output : see the output}';
+                                {--y|show_output : display the cmnd output}';
 
     /**
      * The console command description.
@@ -53,7 +53,7 @@ class MysqlToMongoMaintain extends Command
         $auth_user = $this->argument('auth_user');
         $auth_pass = $this->argument('auth_pass');
         $db_name   = $this->argument('db_name');
-        $output    = $this->option('output');
+        $output    = $this->option('show_output');
 
         // backup db
         if ($choice == 'Backup') {
