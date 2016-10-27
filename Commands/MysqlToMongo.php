@@ -115,7 +115,7 @@ class MysqlToMongo extends Command
 
                         if ( ! empty($indexes)) {
                             foreach ($indexes as $one) {
-                                DB::table($name)->raw()->createIndex([$one => 1]);
+                                DB::table($name)->raw()->createIndex([$one => 1], ['unique' => true, 'sparse'=>true, 'name'=>"{$name}_{$one}"]);
                             }
                         }
                     }

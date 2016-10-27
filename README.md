@@ -2,6 +2,8 @@
 
 A Console Commands To Help With Data Migration From **mysql** To **mongodb**.
 
+- the package is constantely being updated to add new featuers/update current workflow, so if you have any ideas plz make a ticket or better yet send me a PR 🎁.
+
 ## # PreRequisites
 
 - install https://moloquent.github.io/master/#moloquent
@@ -58,25 +60,29 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
     - if `Collection` then drop it
 
 **5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name> --show_output`
->  - choose to **Backup** or **Restore** "in both the file is gzipd and archived for easier maintainability"
-    - if `Restore` "drop the collection b4 restoring"
+>  - choose to **Backup** or **Restore** *(in both the file is gzipd and archived for easier maintainability)*
+    - for `Backup` file is saved at "storage/app/db-backups/"
+    - for `Restore` file is restored from "storage/app/db-restore/"
+        - the collection is droped b4 restoring
 
 ## # Notes
 
 - the package assume that your **mysql** driver connection is `mysql` and your **default** driver connection is `mongodb`.
-- the package **doesnt** recreate the table types from `mysql`, and its up to `mongodb` to decide at that point, so make sure to cast your attributes to avoid issues.
+- the package **doesnt** recreate the table types from `mysql`, and its up to `mongodb` to decide at that point, however currently the below types are already converted on migration
+    - `tinyint(1) => bool`;
+    - `timestamp => date`;
+    - `multi(OneToMany) => index`;
+
+    - `unique => index/unique/sparse`;
+    ###### the index is saved under (CollectionName_field) to avoid issues where you have the same field name in 2 different collections.
+
 - all your app calls to `id` should be changed to `_id` except in view which is automatically converted through the model.
-- foreign ids as `ObjectId` will cause lots of trouble, so its keept same as `moloquent` as string type.
+- `moloquent` use `string` for the linking, so when converting the foreign_ids to `ObjectId` now you will have `string` on one side and `ObjectId` on the other which will cause lots of trouble, so its kept as `string`.
 
 # ToDo
 
 * [x] Find Away To Update Date Fields With Timezone.
 * [x] Update Field Type On Migration.
-    - `tinyint(1) => bool`;
-    - `timestamp => date`;
-    - `unique => index`;
-    - `multi(OneToMany) => index`;
-
 * [ ] Find Away To Add Data In Bulk Instead Of One By One.
 * [ ] Upload Db Backup To S3.
 * [ ] Make A Small GUI For Easier Migration.

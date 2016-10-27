@@ -74,13 +74,15 @@ class MysqlToMongoMaintain extends Command
             } else {
                 $process->run();
             }
+
+            $this->info('file is saved at '."{$path}{$date}");
         }
 
         // restore db
         if ($choice == 'Restore') {
-            $this->info('>> put the file into "storage/app/db-restore/"');
-
             $path = storage_path('app/db-restore/');
+
+            $this->comment('>>> file will be restored from '.$path.' <\<\<');
 
             if ( ! File::exists($path)) {
                 return $this->error('"storage/app/db-restore/" couldnt be found');
@@ -100,6 +102,8 @@ class MysqlToMongoMaintain extends Command
             } else {
                 $process->run();
             }
+
+            $this->info('All Done');
         }
     }
 }
