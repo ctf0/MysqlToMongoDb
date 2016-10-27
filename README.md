@@ -2,12 +2,12 @@
 
 A Console Commands To Help With Data Migration From **mysql** To **mongodb**.
 
-- the package is constantely being updated to add new featuers/update current workflow, so if you have any ideas plz make a ticket or better yet send me a PR 🎁.
+- the package is constantly being updated to add new features/update current workflow, so if you have any ideas plz make a ticket or better yet send me a PR 🎁.
 
 ## # PreRequisites
 
 - install https://moloquent.github.io/master/#moloquent
-- if you havent installed mongodb yet, check http://wp.me/p4DYee-9Q
+- if you haven’t installed mongodb yet, check http://wp.me/p4DYee-9Q
 - make sure that you can connect to both of your dbs through laravel without any issues.
 
 ## # Installation
@@ -63,7 +63,7 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 >  - choose to **Backup** or **Restore** *(in both the file is gzipd and archived for easier maintainability)*
     - for `Backup` file is saved at "storage/app/db-backups/"
     - for `Restore` file is restored from "storage/app/db-restore/"
-        - the collection is droped b4 restoring
+        - the collection is dropped b4 restoring
 
 ## # Notes
 
