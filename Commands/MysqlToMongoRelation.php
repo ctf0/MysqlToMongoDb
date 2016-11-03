@@ -12,7 +12,8 @@ class MysqlToMongoRelation extends Command
      *
      * @var string
      */
-    protected $signature = 'mongo:migrate:relation {fields* : the fields to be resolved ex. role_id article_id etc_id}';
+    protected $signature = 'mongo:migrate:relation
+                                {fields* : the fields to be resolved ex. role_id article_id etc_id}';
 
     /**
      * The console command description.

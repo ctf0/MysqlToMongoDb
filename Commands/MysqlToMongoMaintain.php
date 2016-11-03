@@ -19,7 +19,9 @@ class MysqlToMongoMaintain extends Command
                                 {auth_user : the auth username}
                                 {auth_pass : the auth password}
                                 {db_name : the db name to backup/restore}
-                                {--y|show_output : display the cmnd output}';
+                                {--y|show_output : display the cmnd output}
+                                {--b|backup : backup the db}
+                                {--r|restore : restore the db}';
 
     /**
      * The console command description.
@@ -43,12 +45,6 @@ class MysqlToMongoMaintain extends Command
      */
     public function handle()
     {
-        $choice = $this->choice(
-            'Select The Type You Want To Remove ?',
-            ['>>> Choose 1, 2 <\<\<', 'Backup', 'Restore'],
-            1
-        );
-
         $auth_db   = $this->argument('auth_db');
         $auth_user = $this->argument('auth_user');
         $auth_pass = $this->argument('auth_pass');
@@ -56,7 +52,7 @@ class MysqlToMongoMaintain extends Command
         $output    = $this->option('show_output');
 
         // backup db
-        if ($choice == 'Backup') {
+        if ($this->option('backup')) {
             $date = Carbon::now()->toDateString();
             $path = storage_path('app/db-backups/');
 
@@ -75,11 +71,11 @@ class MysqlToMongoMaintain extends Command
                 $process->run();
             }
 
-            $this->info('file is saved at '."{$path}{$date}");
+            $this->info('>>> file is saved @ '."{$path}{$date}".' <\<\<');
         }
 
         // restore db
-        if ($choice == 'Restore') {
+        if ($this->option('restore')) {
             $path = storage_path('app/db-restore/');
 
             $this->comment('>>> file will be restored from '.$path.' <\<\<');

@@ -7,7 +7,7 @@ A Console Commands To Help With Data Migration From **mysql** To **mongodb**.
 ## # PreRequisites
 
 - install https://moloquent.github.io/master/#moloquent
-- if you haven’t installed mongodb yet, check http://wp.me/p4DYee-9Q
+- if you havent installed mongodb yet, check http://wp.me/p4DYee-9Q
 - make sure that you can connect to both of your dbs through laravel without any issues.
 
 ## # Installation
@@ -54,16 +54,15 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 >  - add the fields you want to resolve ex.`post_id user_id etc_id`
 >  - go through each collection/table and resolve the foreign ids through its corresponding table name. `posts users etcs`
 
-**4-** `mongo:migrate:cleanup <items>`
->  - choose to remove those items as **Field** or **Collection**
-    - if `Field` then remove it from all collections
-    - if `Collection` then drop it
+**4-** `mongo:migrate:cleanup <items> --field --collection`
+> - if `--field` then remove it from all collections
+> - if `--collection` then drop it
 
-**5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name> --show_output`
->  - choose to **Backup** or **Restore** *(in both the file is gzipd and archived for easier maintainability)*
-    - for `Backup` file is saved at "storage/app/db-backups/"
-    - for `Restore` file is restored from "storage/app/db-restore/"
-        - the collection is dropped b4 restoring
+**5-** `mongo:migrate:maintain <auth_db> <auth_user> <auth_pass> <db_name> --show_output --backup --restore`
+> - if `--backup` file is saved at "storage/app/db-backups/"
+    - file is gzipd and archived for easier maintainability
+> - if `--restore` file is restored from "storage/app/db-restore/"
+    - the collection is dropped b4 restoring
 
 ## # Notes
 
@@ -74,10 +73,10 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
     - `multi(OneToMany) => index`;
 
     - `unique => index/unique/sparse`;
-    ###### the index is saved under (CollectionName_field) to avoid issues where you have the same field name in 2 different collections.
+    ###### having a field with the same name in 2 different collections will give an error, so as a-way-around the index is saved as (CollectionName_field)
 
 - all your app calls to `id` should be changed to `_id` except in view which is automatically converted through the model.
-- `moloquent` use `string` for the linking, so when converting the foreign_ids to `ObjectId` now you will have `string` on one side and `ObjectId` on the other which will cause lots of trouble, so its kept as `string`.
+- `moloquent` use `string` for the relation linking/referencing, so when converting the ***foreign_ids*** to `ObjectId` now you will have `string` on one side and `ObjectId` on the other which will cause lots of trouble, so its kept as **string**.
 
 # ToDo
 

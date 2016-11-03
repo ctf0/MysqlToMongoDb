@@ -12,7 +12,10 @@ class MysqlToMongoCleanUp extends Command
      *
      * @var string
      */
-    protected $signature = 'mongo:migrate:cleanup {items* : the items to be removed ex. id, migrations, etc...}';
+    protected $signature = 'mongo:migrate:cleanup
+                                {items* : the items to be removed ex. id, migrations, etc...}
+                                {--f|field : if the items type is a field}
+                                {--c|collection : if the items type is a collection}';
 
     /**
      * The console command description.
@@ -38,18 +41,8 @@ class MysqlToMongoCleanUp extends Command
     {
         $items = $this->argument('items');
 
-        $choice = $this->choice(
-            'Those "items" Are A Type Of ?',
-            [
-                '>>> Choose 1, 2 <\<\<',
-                'Field',
-                'Collection',
-            ],
-            1
-        );
-
         // remove field
-        if ($choice == 'Field') {
+        if ($this->option('field')) {
 
             // get all collections/tables
             $tables = DB::getMongoDB()->listCollections();
@@ -64,7 +57,7 @@ class MysqlToMongoCleanUp extends Command
         }
 
         // remove collection/table
-        if ($choice == 'Collection') {
+        if ($this->option('collection')) {
             foreach ($items as $item) {
                 DB::getMongoDB()->dropCollection($item);
             }
