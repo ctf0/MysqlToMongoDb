@@ -30,9 +30,9 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
     - `tinyint(1) => bool`;
     - `timestamp => date`;
     - `multi(OneToMany) => index`;
-
     - `unique => index/unique/sparse`;
-    ###### having a field with the same name in 2 different collections will give an error, so as a-way-around the index is saved as (CollectionName_field)
+    
+        **having a field with the same name in 2 different collections will give an error, so as a-way-around the index is saved as (CollectionName_field)**
 
 - all your app calls to `id` should be changed to `_id` except in view which is automatically converted through the model.
 - `moloquent` use `string` for the relation linking/referencing, so when converting the ***foreign_ids*** to `ObjectId` now you will have `string` on one side and `ObjectId` on the other which will cause lots of trouble, so its kept as **string**.
