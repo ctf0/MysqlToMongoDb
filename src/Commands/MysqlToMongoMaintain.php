@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace ctf0\MysqlToMongoDb\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -45,18 +45,18 @@ class MysqlToMongoMaintain extends Command
      */
     public function handle()
     {
-        $auth_db   = $this->argument('auth_db');
+        $auth_db = $this->argument('auth_db');
         $auth_user = $this->argument('auth_user');
         $auth_pass = $this->argument('auth_pass');
-        $db_name   = $this->argument('db_name');
-        $output    = $this->option('show_output');
+        $db_name = $this->argument('db_name');
+        $output = $this->option('show_output');
 
         // backup db
         if ($this->option('backup')) {
             $date = Carbon::now()->toDateString();
             $path = storage_path('app/db-backups/');
 
-            if ( ! File::exists($path)) {
+            if (!File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
             }
 
@@ -80,7 +80,7 @@ class MysqlToMongoMaintain extends Command
 
             $this->comment('>>> file will be restored from '.$path.' <\<\<');
 
-            if ( ! File::exists($path)) {
+            if (!File::exists($path)) {
                 return $this->error('"storage/app/db-restore/" couldnt be found');
             }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Console\Commands;
+namespace ctf0\MysqlToMongoDb\Commands;
 
-use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class MysqlToMongoPivot extends Command
 {
@@ -41,10 +41,10 @@ class MysqlToMongoPivot extends Command
      */
     public function handle()
     {
-        $modelOne   = $this->argument('modelOne');
-        $modelTwo   = $this->argument('modelTwo');
-        $tableName  = $this->argument('pivotTable');
-        $method     = $this->argument('relation_method');
+        $modelOne = $this->argument('modelOne');
+        $modelTwo = $this->argument('modelTwo');
+        $tableName = $this->argument('pivotTable');
+        $method = $this->argument('relation_method');
         $drop_pivot = $this->option('keep_pivot');
 
         $field_name_one = snake_case(class_basename($modelOne)).'_id';
@@ -59,7 +59,7 @@ class MysqlToMongoPivot extends Command
             $resolveOne->$method()->attach($resolveTwo);
         }
 
-        if ( ! $drop_pivot) {
+        if (!$drop_pivot) {
             DB::getMongoDB()->dropCollection($tableName);
         }
     }

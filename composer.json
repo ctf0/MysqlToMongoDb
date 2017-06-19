@@ -1,0 +1,37 @@
+{
+    "name": "ctf0/mysql-to-mongodb",
+    "description": "A Console Commands To Help With Data Migration From mysql To mongodb.",
+    "keywords": [
+        "ctf0",
+        "MysqlToMongoDb"
+    ],
+    "homepage": "https://github.com/ctf0/MysqlToMongoDb",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muah",
+            "email": "muah003@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=5.6.4",
+        "illuminate/support": "^5.1",
+        "nesbot/carbon": "~1.20",
+        "moloquent/moloquent": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "ctf0\\MysqlToMongoDb\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ctf0\\MysqlToMongoDb\\MysqlToMongoDbServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

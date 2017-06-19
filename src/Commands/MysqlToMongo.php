@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace ctf0\MysqlToMongoDb\Commands;
 
-use DB;
 use Carbon\Carbon;
-use MongoDB\BSON\UTCDateTime;
-use MongoDB\BSON\Timestamp;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use MongoDB\BSON\Timestamp;
+use MongoDB\BSON\UTCDateTime;
 
 class MysqlToMongo extends Command
 {
@@ -43,21 +43,19 @@ class MysqlToMongo extends Command
      */
     public function handle()
     {
-        $mysql_tables     = 'Tables_in_'.$this->argument('MysqlDb');
+        $mysql_tables = 'Tables_in_'.$this->argument('MysqlDb');
         $remove_id_column = $this->option('keep_id');
 
         if ($this->confirm('Mongo DataBase Name='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
-
             // mysql stuff
             $mysql_connection = DB::connection('mysql');
-            $tables           = $mysql_connection->select('SHOW TABLES');
+            $tables = $mysql_connection->select('SHOW TABLES');
 
             // drop mongo db first
             DB::getMongoDB()->drop();
 
             // tables loop
             foreach ($tables as $one) {
-
                 // extract the table name
                 $name = $one->$mysql_tables;
 
@@ -72,7 +70,6 @@ class MysqlToMongo extends Command
                 // data loop
                 else {
                     foreach ($query as $item) {
-
                         // turn into array
                         $arr = (array) $item;
 
@@ -87,7 +84,6 @@ class MysqlToMongo extends Command
                          *
                          */
                         for ($i = 0; $i < count($columns); ++$i) {
-
                             // bool
                             if ($columns[$i]->Type == 'tinyint(1)') {
                                 $arr[$columns[$i]->Field] = (bool) $arr[$columns[$i]->Field];
@@ -95,7 +91,7 @@ class MysqlToMongo extends Command
 
                             // date
                             if ($columns[$i]->Type == 'timestamp') {
-                                $stamp                    = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
+                                $stamp = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
                                 $arr[$columns[$i]->Field] = new UTCDateTime($stamp * 1000);
                             }
 
@@ -106,14 +102,14 @@ class MysqlToMongo extends Command
                         }
 
                         // remove the id column
-                        if ( ! $remove_id_column) {
+                        if (!$remove_id_column) {
                             array_shift($arr);
                         }
 
                         // insert into mongo
                         DB::table($name)->insert($arr);
 
-                        if ( ! empty($indexes)) {
+                        if (!empty($indexes)) {
                             foreach ($indexes as $one) {
                                 DB::table($name)->raw()->createIndex([$one => 1], ['unique' => true, 'sparse' => true, 'name' => "{$name}_{$one}"]);
                             }

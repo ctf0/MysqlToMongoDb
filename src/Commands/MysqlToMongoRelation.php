@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Console\Commands;
+namespace ctf0\MysqlToMongoDb\Commands;
 
-use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class MysqlToMongoRelation extends Command
 {
@@ -44,12 +44,10 @@ class MysqlToMongoRelation extends Command
         $tables = DB::getMongoDB()->listCollections();
 
         foreach ($tables as $one) {
-
             // get the name of each collection
             $name = $one->getName();
 
             foreach ($fields as $field) {
-
                 // get the table name of the field
                 $str = str_plural(str_replace('_id', '', $field));
 
@@ -57,7 +55,6 @@ class MysqlToMongoRelation extends Command
                 $collection = DB::table($str)->pluck('id', '_id');
 
                 foreach ($collection as $new_id => $old_id) {
-
                     // replace the old id with the new one in the collection
                     DB::table($name)->where($field, $old_id)->update([
                         $field => $new_id,

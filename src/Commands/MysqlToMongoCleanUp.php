@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Console\Commands;
+namespace ctf0\MysqlToMongoDb\Commands;
 
-use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class MysqlToMongoCleanUp extends Command
 {
@@ -43,7 +43,6 @@ class MysqlToMongoCleanUp extends Command
 
         // remove field
         if ($this->option('field')) {
-
             // get all collections/tables
             $tables = DB::getMongoDB()->listCollections();
 
