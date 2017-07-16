@@ -3,7 +3,11 @@
     "description": "A Console Commands To Help With Data Migration From mysql To mongodb.",
     "keywords": [
         "ctf0",
-        "MysqlToMongoDb"
+        "MysqlToMongoDb",
+        "mysql",
+        "mongodb",
+        "data migration",
+        "laravel"
     ],
     "homepage": "https://github.com/ctf0/MysqlToMongoDb",
     "license": "MIT",
@@ -14,7 +18,7 @@
         }
     ],
     "require": {
-        "php" : ">=5.6.4",
+        "php" : "~7.0",
         "illuminate/support": "^5.1",
         "nesbot/carbon": "~1.20",
         "moloquent/moloquent": "dev-master"

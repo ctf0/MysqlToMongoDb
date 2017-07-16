@@ -3,10 +3,10 @@
 namespace ctf0\MysqlToMongoDb\Commands;
 
 use Carbon\Carbon;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use MongoDB\BSON\Timestamp;
 use MongoDB\BSON\UTCDateTime;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class MysqlToMongo extends Command
 {
@@ -43,13 +43,13 @@ class MysqlToMongo extends Command
      */
     public function handle()
     {
-        $mysql_tables = 'Tables_in_'.$this->argument('MysqlDb');
+        $mysql_tables     = 'Tables_in_' . $this->argument('MysqlDb');
         $remove_id_column = $this->option('keep_id');
 
-        if ($this->confirm('Mongo DataBase Name='.DB::getMongoDB()->getDatabaseName().' Will Be Removed To Avoid Any Duplication')) {
+        if ($this->confirm('Mongo DataBase Name=' . DB::getMongoDB()->getDatabaseName() . ' Will Be Removed To Avoid Any Duplication')) {
             // mysql stuff
             $mysql_connection = DB::connection('mysql');
-            $tables = $mysql_connection->select('SHOW TABLES');
+            $tables           = $mysql_connection->select('SHOW TABLES');
 
             // drop mongo db first
             DB::getMongoDB()->drop();
@@ -74,7 +74,7 @@ class MysqlToMongo extends Command
                         $arr = (array) $item;
 
                         // get the table columns so we can change its type
-                        $columns = $mysql_connection->select(DB::raw('SHOW COLUMNS FROM '.$name.''));
+                        $columns = $mysql_connection->select(DB::raw('SHOW COLUMNS FROM ' . $name . ''));
 
                         /*
                          *
@@ -91,7 +91,7 @@ class MysqlToMongo extends Command
 
                             // date
                             if ($columns[$i]->Type == 'timestamp') {
-                                $stamp = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
+                                $stamp                    = Carbon::parse($arr[$columns[$i]->Field])->timestamp;
                                 $arr[$columns[$i]->Field] = new UTCDateTime($stamp * 1000);
                             }
 

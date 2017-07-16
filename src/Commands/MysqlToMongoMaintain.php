@@ -45,11 +45,11 @@ class MysqlToMongoMaintain extends Command
      */
     public function handle()
     {
-        $auth_db = $this->argument('auth_db');
+        $auth_db   = $this->argument('auth_db');
         $auth_user = $this->argument('auth_user');
         $auth_pass = $this->argument('auth_pass');
-        $db_name = $this->argument('db_name');
-        $output = $this->option('show_output');
+        $db_name   = $this->argument('db_name');
+        $output    = $this->option('show_output');
 
         // backup db
         if ($this->option('backup')) {
@@ -60,25 +60,25 @@ class MysqlToMongoMaintain extends Command
                 File::makeDirectory($path, 0755, true);
             }
 
-            $process = new Process('mongodump -u '.$auth_user.' -p '.$auth_pass.' --authenticationDatabase='.$auth_db.' --db='.$db_name.' --dumpDbUsersAndRoles --archive='.$date.' --gzip');
+            $process = new Process('mongodump -u ' . $auth_user . ' -p ' . $auth_pass . ' --authenticationDatabase=' . $auth_db . ' --db=' . $db_name . ' --dumpDbUsersAndRoles --archive=' . $date . ' --gzip');
             $process->setWorkingDirectory($path);
 
             if ($output) {
                 $process->run(function ($type, $buffer) {
-                    echo $buffer;
+                    print $buffer;
                 });
             } else {
                 $process->run();
             }
 
-            $this->info('>>> file is saved @ '."{$path}{$date}".' <\<\<');
+            $this->info('>>> file is saved @ ' . "{$path}{$date}" . ' <\<\<');
         }
 
         // restore db
         if ($this->option('restore')) {
             $path = storage_path('app/db-restore/');
 
-            $this->comment('>>> file will be restored from '.$path.' <\<\<');
+            $this->comment('>>> file will be restored from ' . $path . ' <\<\<');
 
             if (!File::exists($path)) {
                 return $this->error('"storage/app/db-restore/" couldnt be found');
@@ -87,13 +87,13 @@ class MysqlToMongoMaintain extends Command
             $file_name = $this->ask('the file name to be restored ? ex. 2016-10-25');
             $full_path = "$path/$file_name";
 
-            $process = new Process('mongorestore -u '.$auth_user.' -p '.$auth_pass.' --authenticationDatabase='.$auth_db.' --db='.$db_name.' --objcheck --restoreDbUsersAndRoles --archive='.$full_path.' --gzip --drop --stopOnError');
+            $process = new Process('mongorestore -u ' . $auth_user . ' -p ' . $auth_pass . ' --authenticationDatabase=' . $auth_db . ' --db=' . $db_name . ' --objcheck --restoreDbUsersAndRoles --archive=' . $full_path . ' --gzip --drop --stopOnError');
 
             $process->setWorkingDirectory($path);
 
             if ($output) {
                 $process->run(function ($type, $buffer) {
-                    echo $buffer;
+                    print $buffer;
                 });
             } else {
                 $process->run();
