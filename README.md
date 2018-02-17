@@ -1,6 +1,7 @@
 # Intro
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/mysql-to-mongodb.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/mysql-to-mongodb) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/mysql-to-mongodb.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/mysql-to-mongodb)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb)
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
 
 I made this tool as i was starting to learn mongodb and i couldnt find any decent alternative.
 
