@@ -65,7 +65,7 @@ class MysqlToMongoMaintain extends Command
 
             if ($output) {
                 $process->run(function ($type, $buffer) {
-                    print $buffer;
+                    echo $buffer;
                 });
             } else {
                 $process->run();
@@ -93,7 +93,7 @@ class MysqlToMongoMaintain extends Command
 
             if ($output) {
                 $process->run(function ($type, $buffer) {
-                    print $buffer;
+                    echo $buffer;
                 });
             } else {
                 $process->run();
