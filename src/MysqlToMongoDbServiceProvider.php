@@ -21,11 +21,4 @@ class MysqlToMongoDbServiceProvider extends ServiceProvider
             ]);
         }
     }
-
-    /**
-     * Register any package services.
-     */
-    public function register()
-    {
-    }
 }
