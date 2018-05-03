@@ -1,4 +1,4 @@
-# Intro
+# Mysql To MongoDb
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb)
 [![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
@@ -13,11 +13,11 @@ The tool is working as expected and even tested on a live working app that uses 
 
 - (Laravel < 5.5) add the service provider
 
-```php
-'providers' => [
-    ctf0\MysqlToMongoDb\MysqlToMongoDbServiceProvider::class,
-]
-```
+    ```php
+    'providers' => [
+        ctf0\MysqlToMongoDb\MysqlToMongoDbServiceProvider::class,
+    ]
+    ```
 
 ## Usage
 
