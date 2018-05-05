@@ -20,8 +20,11 @@
     "require": {
         "php" : ">=5.5.9",
         "illuminate/support": "^5.1",
-        "nesbot/carbon": "~1.20",
-        "moloquent/moloquent": "dev-master"
+        "nesbot/carbon": "~1.20"
+    },
+    "suggest": {
+        "moloquent/moloquent": "dev-master",
+        "jenssegers/mongodb": ">=2.2.0"
     },
     "autoload": {
         "psr-4": {
