@@ -1,10 +1,10 @@
-# Mysql To MongoDb
+<h1 align="center">
+    Mysql To MongoDb
+    <br>
+    <a href="https://packagist.org/packages/ctf0/mysql-to-mongodb"><img src="https://img.shields.io/packagist/v/ctf0/mysql-to-mongodb.svg" alt="Latest Stable Version" /></a> <a href="https://packagist.org/packages/ctf0/mysql-to-mongodb"><img src="https://img.shields.io/packagist/dt/ctf0/mysql-to-mongodb.svg" alt="Total Downloads" /></a>
+</h1>
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/mysql-to-mongodb.svg)](https://packagist.org/packages/ctf0/mysql-to-mongodb)
-[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
-
-I made this tool as i was starting to learn mongodb and i couldnt find any decent alternative.
-
+I made this tool as i was starting to learn mongodb and i couldnt find any decent alternative. <br/>
 The tool is working as expected and even tested on a live working app that uses mysql, however i strongly recommend that you use this package with a grain of salt.
 
 ## Installation
@@ -47,7 +47,7 @@ mongo:migrate:maintain   # backup/restore mongo db (mongodump / mongorestore)
 - all your app calls to `id` should be changed to `_id` except in view which is automatically converted through the model.
 - `moloquent` use `string` for the relation linking/referencing, so when converting the ***foreign_ids*** to `ObjectId` now you will have `string` on one side and `ObjectId` on the other which will cause lots of trouble, so its kept as **string**.
 
-# ToDo
+## ToDo
 
 * Find Away To Add Data In Bulk Instead Of One By One.
 * Upload Db Backup To S3.
