@@ -2,6 +2,7 @@
 
 namespace ctf0\MysqlToMongoDb\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -49,7 +50,7 @@ class MysqlToMongoRelation extends Command
 
             foreach ($fields as $field) {
                 // get the table name of the field
-                $str = str_plural(str_replace('_id', '', $field));
+                $str = Str::plural(str_replace('_id', '', $field));
 
                 // get the old & new ids from the field collection/table
                 $collection = DB::table($str)->pluck('id', '_id');
