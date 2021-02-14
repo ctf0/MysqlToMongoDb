@@ -39,5 +39,11 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/ctf0"
+        }
+    ]
 }
